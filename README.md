@@ -3,6 +3,7 @@
 Учебный проект «Age of War» на Python с использованием библиотеки `SpritePro`.
 https://igroutka.ru/flesh-igry/28216-age-of-war.html
 ![Uploading image.png…]()
+
 Цель проекта — показать понятную, масштабируемую архитектуру (как в «больших» играх), но в простом 2D-стеке: **Scene → Systems → Entities**, и глобальные события через **EventBus (встроенный в SpritePro)**.
 
 ## Содержание
