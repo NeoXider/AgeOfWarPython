@@ -61,7 +61,7 @@ class CounterSystem:
 from game.systems.counter_system import CounterSystem
 
 self.systems = [
-    EconomySystem(self.events, self.economy),
+    EconomySystem(self.events, self.economy, scene=self),
     SpawnSystem(self.events, units=self.units, scene=self),
     BattleSystem(self.events, units=self.units, projectiles=self.projectiles),
     CounterSystem(self.events),

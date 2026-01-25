@@ -38,7 +38,7 @@ class GameScene(s.Scene):
 
         # Создаём системы в конструкторе, подписки/ресурсы включаем в on_enter.
         self.systems = [
-            EconomySystem(self.events, self.economy),
+            EconomySystem(self.events, self.economy, scene=self),
             SpawnSystem(self.events, units=self.units, scene=self),
             BattleSystem(self.events, units=self.units, projectiles=self.projectiles),
             UISystem(self.events, scene=self),
