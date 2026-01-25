@@ -14,8 +14,6 @@ class MenuScene(s.Scene):
 
     def __init__(self) -> None:
         super().__init__()
-        # Создаём UI-объекты в конструкторе (как договорились в проекте).
-        # Важно: `main.py` вызывает `get_screen()` до регистрации сцен, поэтому `s.WH/s.WH_C` уже валидны.
 
         # Заголовок
         self._title = s.TextSprite(
@@ -27,6 +25,7 @@ class MenuScene(s.Scene):
             sorting_order=1000,
             scene=self,
         )
+        self._title.set_screen_space(True)
 
         def start_game() -> None:
             # Переходим в игровую сцену по имени (как в референсе SpritePro).
@@ -42,6 +41,7 @@ class MenuScene(s.Scene):
             on_click=start_game,
             scene=self,
         )
+        self._start_btn.set_screen_space(True)
 
         def quit_game() -> None:
             # Для учебного каркаса достаточно поднять SystemExit.
@@ -56,24 +56,14 @@ class MenuScene(s.Scene):
             on_click=quit_game,
             scene=self,
         )
-
-        # Изначально выключаем, включаем в on_enter.
-        self._title.set_active(False)
-        self._start_btn.set_active(False)
-        self._quit_btn.set_active(False)
+        self._quit_btn.set_screen_space(True)
 
     def on_enter(self, context) -> None:
-        # В меню отключаем управление debug-камерой, чтобы UI не "плавал" без screen-space вызовов в сценах.
-        s.set_debug_camera_input(None)
-
-        self._title.set_active(True)
-        self._start_btn.set_active(True)
-        self._quit_btn.set_active(True)
+        # Ничего не выключаем: debug-камера управляется глобально через `main.py`.
+        pass
 
     def on_exit(self) -> None:
-        self._title.set_active(False)
-        self._start_btn.set_active(False)
-        self._quit_btn.set_active(False)
+        pass
 
     def update(self, dt: float) -> None:
         pass
