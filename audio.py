@@ -6,12 +6,12 @@
 """
 
 import spritePro as s
+from game.paths import PATHS
+attack_sound:s.Sound = s.load_sound('attack',PATHS.audio +'/Blow1.ogg')
 
-attack_sound:s.Sound = s.load_sound("assets/audio/attack.wav")
-
-def play_music():
+def play_music_game():
     """Запустить фоновую музыку (если файл существует)."""
-    s.audio.play_music("assets/audio/background_music.mp3", loops=-1, volume=0.3)
+    s.audio_manager.play_music(PATHS.audio+'/Dungeon1.ogg',-1,0.3)
 
 def stop_music():
     """Остановить фоновую музыку."""

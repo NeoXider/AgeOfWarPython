@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import pygame
 import spritePro as s
-
+from audio import play_music_game
 from game.domain import EconomyModel, Faction
 from game.entities import Base, Projectile, Unit
 from game.global_events import GameEvents, SpawnRequested
@@ -22,7 +22,7 @@ class GameScene(s.Scene):
         super().__init__()
         # Используем встроенный EventBus из SpritePro (глобальный).
         self.events = s.events
-
+        
         # Состояние сцены
         self.units: list[Unit] = []
         self.projectiles: list[Projectile] = []
@@ -47,7 +47,8 @@ class GameScene(s.Scene):
     def on_enter(self, context) -> None:
         for sys in self.systems:
             sys.on_enter()
-
+        play_music_game()
+        
     def on_exit(self) -> None:
         for sys in reversed(self.systems):
             sys.on_exit()
