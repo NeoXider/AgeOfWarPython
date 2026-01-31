@@ -5,7 +5,7 @@
 """
 
 from __future__ import annotations
-
+from audio import play_music_menu
 import spritePro as s
 
 
@@ -26,11 +26,12 @@ class MenuScene(s.Scene):
             scene=self,
         )
         self._title.set_screen_space(True)
-
+        play_music_menu()
         def start_game() -> None:
             # Переходим в игровую сцену по имени (как в референсе SpritePro).
             # recreate=True — чтобы каждый запуск начинался "с нуля".
             s.set_scene_by_name("game", recreate=True)
+            
 
         self._start_btn = s.Button(
             "",

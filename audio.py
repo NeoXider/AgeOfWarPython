@@ -12,9 +12,22 @@ def play_attack_sound():
     audio_hit = PATHS.audio + choice(list_random_hit_sound)
     s.audio_manager.play_sound(audio_hit)
 
+def play_click_sound():
+    s.audio_manager.play_sound(PATHS.audio+'/Cursor.ogg')
+
+def play_buy_sound():
+    s.audio_manager.play_sound(PATHS.audio+'/Shop.ogg')
+
+def play_shoot_sound():
+    s.audio_manager.play_sound(PATHS.audio+'/Gun1.ogg')
+
 def play_music_game():
     """Запустить фоновую музыку (если файл существует)."""
     s.audio_manager.play_music(PATHS.audio+'/Dungeon1.ogg',-1,0.3)
+
+def play_music_menu():
+    """Запустить фоновую музыку (если файл существует)."""
+    s.audio_manager.play_music(PATHS.audio+'/Dungeon2.ogg',-1,0.3)
 
 def stop_music():
     """Остановить фоновую музыку."""
