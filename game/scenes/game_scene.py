@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import pygame
 import spritePro as s
-from audio import play_music_game
+from audio import play_music_game,stop_music
 from game.domain import EconomyModel, Faction
 from game.entities import Base, Projectile, Unit
 from game.global_events import GameEvents, SpawnRequested
@@ -48,10 +48,11 @@ class GameScene(s.Scene):
         for sys in self.systems:
             sys.on_enter()
         play_music_game()
-        
+
     def on_exit(self) -> None:
         for sys in reversed(self.systems):
             sys.on_exit()
+        stop_music()
 
     def update(self, dt: float) -> None:
         # Пример: запрос спавна через событие (демонстрация event-driven подхода)

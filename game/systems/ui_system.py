@@ -28,17 +28,30 @@ class UISystem:
         self._scene = scene
         self._gold_handler: Optional[callable] = None
         self._gold_text: Optional[s.TextSprite] = None
+        self._gold_iface: Optional[s.Sprite] = None
+        self._spawn_iface: Optional[s.Sprite] = None
         self._spawn_player_btn: Optional[s.Button] = None
         self._spawn_enemy_btn: Optional[s.Button] = None
         self._gold_player: int = 0
         self._gold_enemy: int = 0
 
     def on_enter(self) -> None:
+        self._gold_iface = s.Sprite(
+            "assets/images/left_burda.png",
+            (350,150),
+            (-55, 0),
+            0,
+            anchor=s.Anchor.TOP_LEFT,
+            sorting_order=1000,
+            scene=self._scene,
+        )
+        self._gold_iface.set_screen_space(True)
+
         self._gold_text = s.TextSprite(
             "Gold: 0 | Enemy: 0",
             28,
-            (255, 255, 255),
-            (10, 10),
+            (0, 0, 0),
+            (20, 50),
             anchor=s.Anchor.TOP_LEFT,
             sorting_order=1000,
             scene=self._scene,
@@ -52,7 +65,7 @@ class UISystem:
             )
 
         self._spawn_player_btn = s.Button(
-            "",
+            '',
             (220, 48),
             (10, s.WH.y - 20),
             "Spawn Player (1)",
