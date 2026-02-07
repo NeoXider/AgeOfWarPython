@@ -89,8 +89,7 @@ class UISystem:
             scene=self._scene,
         )
         self._spawn_player_melee_btn.set_parent(self.panel_spawn,False)
-        self._spawn_player_melee_btn.position += (-100,10)
-
+        self._spawn_player_melee_btn.local_position = (-100,10)
         
 
         def spawn_player_ranged() -> None:
@@ -102,7 +101,7 @@ class UISystem:
         self._spawn_player_ranged_btn = s.Button(
             'assets/images/piupiu.png',
             (48, 48),
-            (240, s.WH.y - 20),
+            (50,0),
             "",
             22,
             on_click=spawn_player_ranged,
@@ -110,7 +109,8 @@ class UISystem:
             sorting_order=1000,
             scene=self._scene,
         )
-        self._spawn_player_ranged_btn.set_screen_space(True)
+        self._spawn_player_ranged_btn.set_parent(self.panel_spawn,False)
+        self._spawn_player_ranged_btn.local_position = (-50,10)
 
         def spawn_enemy_melee() -> None:
             self._events.send(
