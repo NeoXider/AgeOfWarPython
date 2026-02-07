@@ -10,7 +10,7 @@ from typing import Optional
 
 import spritePro as s
 
-from game.domain import Faction
+from game.domain import Faction, UnitType
 from game.global_events import GameEvents, GoldChanged, SpawnRequested
 
 
@@ -30,8 +30,10 @@ class UISystem:
         self._gold_text: Optional[s.TextSprite] = None
         self._gold_iface: Optional[s.Sprite] = None
         self._spawn_iface: Optional[s.Sprite] = None
-        self._spawn_player_btn: Optional[s.Button] = None
-        self._spawn_enemy_btn: Optional[s.Button] = None
+        self._spawn_player_melee_btn: Optional[s.Button] = None
+        self._spawn_player_ranged_btn: Optional[s.Button] = None
+        self._spawn_enemy_melee_btn: Optional[s.Button] = None
+        self._spawn_enemy_ranged_btn: Optional[s.Button] = None
         self._gold_player: int = 0
         self._gold_enemy: int = 0
 
@@ -58,43 +60,81 @@ class UISystem:
         )
         self._gold_text.set_screen_space(True)
 
-        def spawn_player() -> None:
+        def spawn_player_melee() -> None:
             self._events.send(
                 GameEvents.UNIT_SPAWN_REQUESTED,
-                data=SpawnRequested(faction=Faction.PLAYER),
+                data=SpawnRequested(faction=Faction.PLAYER, unit_type=UnitType.MELEE),
             )
 
-        self._spawn_player_btn = s.Button(
+        self._spawn_player_melee_btn = s.Button(
             '',
             (220, 48),
             (10, s.WH.y - 20),
-            "Spawn Player (1)",
+            "P: MELEE (1)",
             22,
-            on_click=spawn_player,
+            on_click=spawn_player_melee,
             anchor=s.Anchor.BOTTOM_LEFT,
             sorting_order=1000,
             scene=self._scene,
         )
-        self._spawn_player_btn.set_screen_space(True)
+        self._spawn_player_melee_btn.set_screen_space(True)
 
-        def spawn_enemy() -> None:
+        def spawn_player_ranged() -> None:
             self._events.send(
                 GameEvents.UNIT_SPAWN_REQUESTED,
-                data=SpawnRequested(faction=Faction.ENEMY),
+                data=SpawnRequested(faction=Faction.PLAYER, unit_type=UnitType.RANGED),
             )
 
-        self._spawn_enemy_btn = s.Button(
-            "",
+        self._spawn_player_ranged_btn = s.Button(
+            '',
             (220, 48),
             (240, s.WH.y - 20),
-            "Spawn Enemy (2)",
+            "P: RANGED (3)",
             22,
-            on_click=spawn_enemy,
+            on_click=spawn_player_ranged,
             anchor=s.Anchor.BOTTOM_LEFT,
             sorting_order=1000,
             scene=self._scene,
         )
-        self._spawn_enemy_btn.set_screen_space(True)
+        self._spawn_player_ranged_btn.set_screen_space(True)
+
+        def spawn_enemy_melee() -> None:
+            self._events.send(
+                GameEvents.UNIT_SPAWN_REQUESTED,
+                data=SpawnRequested(faction=Faction.ENEMY, unit_type=UnitType.MELEE),
+            )
+
+        self._spawn_enemy_melee_btn = s.Button(
+            "",
+            (220, 48),
+            (470, s.WH.y - 20),
+            "E: MELEE (2)",
+            22,
+            on_click=spawn_enemy_melee,
+            anchor=s.Anchor.BOTTOM_LEFT,
+            sorting_order=1000,
+            scene=self._scene,
+        )
+        self._spawn_enemy_melee_btn.set_screen_space(True)
+
+        def spawn_enemy_ranged() -> None:
+            self._events.send(
+                GameEvents.UNIT_SPAWN_REQUESTED,
+                data=SpawnRequested(faction=Faction.ENEMY, unit_type=UnitType.RANGED),
+            )
+
+        self._spawn_enemy_ranged_btn = s.Button(
+            "",
+            (220, 48),
+            (700, s.WH.y - 20),
+            "E: RANGED (4)",
+            22,
+            on_click=spawn_enemy_ranged,
+            anchor=s.Anchor.BOTTOM_LEFT,
+            sorting_order=1000,
+            scene=self._scene,
+        )
+        self._spawn_enemy_ranged_btn.set_screen_space(True)
 
         self._events.connect(GameEvents.GOLD_CHANGED, self._on_gold_changed)
         self._gold_handler = self._on_gold_changed
@@ -109,18 +149,30 @@ class UISystem:
             except Exception:
                 pass
             self._gold_text = None
-        if self._spawn_player_btn:
+        if self._spawn_player_melee_btn:
             try:
-                self._spawn_player_btn.set_active(False)
+                self._spawn_player_melee_btn.set_active(False)
             except Exception:
                 pass
-            self._spawn_player_btn = None
-        if self._spawn_enemy_btn:
+            self._spawn_player_melee_btn = None
+        if self._spawn_player_ranged_btn:
             try:
-                self._spawn_enemy_btn.set_active(False)
+                self._spawn_player_ranged_btn.set_active(False)
             except Exception:
                 pass
-            self._spawn_enemy_btn = None
+            self._spawn_player_ranged_btn = None
+        if self._spawn_enemy_melee_btn:
+            try:
+                self._spawn_enemy_melee_btn.set_active(False)
+            except Exception:
+                pass
+            self._spawn_enemy_melee_btn = None
+        if self._spawn_enemy_ranged_btn:
+            try:
+                self._spawn_enemy_ranged_btn.set_active(False)
+            except Exception:
+                pass
+            self._spawn_enemy_ranged_btn = None
 
     def update(self, dt: float) -> None:
         pass

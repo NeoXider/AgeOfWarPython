@@ -34,6 +34,8 @@ class Base(Entity):
         )
         sprite.color = (60, 180, 255) if faction == Faction.PLAYER else (255, 100, 100)
         base = Base(scene=scene, sprite=sprite, faction=faction, stats=BaseStats(max_hp=1000), hp=1000)
+        # База должна смотреть на врага: игрок — вправо, враг — влево.
+        base.set_facing_dir(1 if faction == Faction.PLAYER else -1)
         return base
 
     def apply_damage(self, amount: int) -> None:

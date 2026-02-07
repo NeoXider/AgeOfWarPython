@@ -19,7 +19,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from game.domain import Faction
+from game.domain import Faction, UnitType
 
 
 class GameEvents:
@@ -49,5 +49,6 @@ class GoldChanged:
 @dataclass(frozen=True, slots=True)
 class SpawnRequested:
     faction: Faction
+    unit_type: UnitType = UnitType.MELEE
     lane: int = 0
 

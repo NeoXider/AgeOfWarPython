@@ -11,6 +11,7 @@ import spritePro as s
 from audio import play_music_game,stop_music
 from game.domain import EconomyModel, Faction
 from game.entities import Base, Projectile, Unit
+from game.domain import UnitType
 from game.global_events import GameEvents, SpawnRequested
 from game.systems import BattleSystem, EconomySystem, SpawnSystem, UISystem
 
@@ -57,12 +58,25 @@ class GameScene(s.Scene):
     def update(self, dt: float) -> None:
         # Пример: запрос спавна через событие (демонстрация event-driven подхода)
         if s.input.was_pressed(pygame.K_1):
-            self.events.send(GameEvents.UNIT_SPAWN_REQUESTED, data=SpawnRequested(faction=Faction.PLAYER))
+            self.events.send(
+                GameEvents.UNIT_SPAWN_REQUESTED,
+                data=SpawnRequested(faction=Faction.PLAYER, unit_type=UnitType.MELEE),
+            )
         if s.input.was_pressed(pygame.K_2):
-            self.events.send(GameEvents.UNIT_SPAWN_REQUESTED, data=SpawnRequested(faction=Faction.ENEMY))
+            self.events.send(
+                GameEvents.UNIT_SPAWN_REQUESTED,
+                data=SpawnRequested(faction=Faction.ENEMY, unit_type=UnitType.MELEE),
+            )
         if s.input.was_pressed(pygame.K_3):
-            if self.units:
-                self.units[0].move_to(400.0)
+            self.events.send(
+                GameEvents.UNIT_SPAWN_REQUESTED,
+                data=SpawnRequested(faction=Faction.PLAYER, unit_type=UnitType.RANGED),
+            )
+        if s.input.was_pressed(pygame.K_4):
+            self.events.send(
+                GameEvents.UNIT_SPAWN_REQUESTED,
+                data=SpawnRequested(faction=Faction.ENEMY, unit_type=UnitType.RANGED),
+            )
 
         for unit in self.units:
             unit.update_movement(dt)

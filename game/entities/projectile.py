@@ -32,5 +32,7 @@ class Projectile(Entity):
             sorting_order=10,
         )
         sprite.color = (250, 230, 80)
-        return Projectile(scene=scene, sprite=sprite, faction=faction)
+        p = Projectile(scene=scene, sprite=sprite, faction=faction)
+        p.set_facing_dir(1 if faction == Faction.PLAYER else -1)
+        return p
 

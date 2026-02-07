@@ -23,11 +23,11 @@ def play_shoot_sound():
 
 def play_music_game():
     """Запустить фоновую музыку (если файл существует)."""
-    s.audio_manager.play_music(PATHS.audio+'/Dungeon1.ogg',-1,0.3)
+    s.audio_manager.play_music(PATHS.audio+'/Dungeon1.ogg',-1,0.2)
 
 def play_music_menu():
     """Запустить фоновую музыку (если файл существует)."""
-    s.audio_manager.play_music(PATHS.audio+'/Dungeon2.ogg',-1,0.3)
+    s.audio_manager.play_music(PATHS.audio+'/Dungeon2.ogg',-1,0.15)
 
 def stop_music():
     """Остановить фоновую музыку."""

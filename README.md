@@ -200,7 +200,10 @@ class Paths:
 
 ```python
 def on_click_spawn_player() -> None:
-    self._events.send(GameEvents.UNIT_SPAWN_REQUESTED, data=SpawnRequested(faction=Faction.PLAYER))
+    self._events.send(
+        GameEvents.UNIT_SPAWN_REQUESTED,
+        data=SpawnRequested(faction=Faction.PLAYER, unit_type=UnitType.MELEE),
+    )
 ```
 
 ### 4) Подключаем в `GameScene`

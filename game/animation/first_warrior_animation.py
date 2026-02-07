@@ -1,8 +1,13 @@
+"""
+Билдер анимаций для “воинов”.
 
+Делает `spritePro.Animation` и регистрирует в ней состояния (idle/walk/...).
+"""
 
-from game.paths import PATHS
 import spritePro as s
-from game.domain import Faction, UnitStats, UnitType
+
+from game.domain import UnitType
+from game.paths import PATHS
 
 def _build_animation(sprite: s.Sprite, unit_type: UnitType) -> s.Animation:
     """Создаёт анимацию для юнита конкретного типа."""
