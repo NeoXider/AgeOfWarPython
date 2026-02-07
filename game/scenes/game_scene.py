@@ -31,11 +31,14 @@ class GameScene(s.Scene):
         self.economy = EconomyModel(
             gold={Faction.PLAYER: 0, Faction.ENEMY: 0},
             income_per_second={Faction.PLAYER: 5, Faction.ENEMY: 5},
-        )
+        ) 
+
+        self.fon = s.Sprite('assets/images/i.webp', (1800, 720), (400, 300), 0, -1000 , scene= self)
+
 
         # Создаём объекты мира в конструкторе (как договорились в проекте).
-        self.player_base = Base.create(self, Faction.PLAYER, (50, 360))
-        self.enemy_base = Base.create(self, Faction.ENEMY, (850, 360))
+        self.player_base = Base.create(self, Faction.PLAYER, (-460, 430))
+        self.enemy_base = Base.create(self, Faction.ENEMY, (1260, 430))
 
         # Создаём системы в конструкторе, подписки/ресурсы включаем в on_enter.
         self.systems = [
@@ -70,13 +73,15 @@ class GameScene(s.Scene):
         if s.input.was_pressed(pygame.K_3):
             self.events.send(
                 GameEvents.UNIT_SPAWN_REQUESTED,
-                data=SpawnRequested(faction=Faction.PLAYER, unit_type=UnitType.RANGED),
+                data=SpawnRequested(faction=Faction.PLAYER, unit_type=UnitType.SIEGE),
             )
         if s.input.was_pressed(pygame.K_4):
             self.events.send(
                 GameEvents.UNIT_SPAWN_REQUESTED,
-                data=SpawnRequested(faction=Faction.ENEMY, unit_type=UnitType.RANGED),
+                data=SpawnRequested(faction=Faction.ENEMY, unit_type=UnitType.SIEGE),
             )
+
+        
 
         for unit in self.units:
             unit.update_movement(dt)

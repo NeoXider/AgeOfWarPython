@@ -42,13 +42,13 @@ class SpawnSystem:
 
     def update(self, dt: float) -> None:
         for u in self._units:
-            desired_x = 850.0 if u.faction == Faction.PLAYER else 50.0
+            desired_x = 1230.0 if u.faction == Faction.PLAYER else -430.0
             if u.is_alive and u.target_x != desired_x:
                 u.move_to(desired_x)
 
     def _on_spawn_requested(self, *, data: SpawnRequested) -> None:
-        x = 135 if data.faction == Faction.PLAYER else 790
-        y = 380
+        x = -430 if data.faction == Faction.PLAYER else 1230
+        y = 430
         u = Unit.create(self._scene, data.faction, (x, y), unit_type=data.unit_type)
         self._units.append(u)
 

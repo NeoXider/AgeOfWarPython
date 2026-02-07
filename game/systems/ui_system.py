@@ -95,7 +95,7 @@ class UISystem:
         def spawn_player_ranged() -> None:
             self._events.send(
                 GameEvents.UNIT_SPAWN_REQUESTED,
-                data=SpawnRequested(faction=Faction.PLAYER, unit_type=UnitType.RANGED),
+                data=SpawnRequested(faction=Faction.PLAYER, unit_type=UnitType.SIEGE),
             )
 
         self._spawn_player_ranged_btn = s.Button(
@@ -134,7 +134,7 @@ class UISystem:
         def spawn_enemy_ranged() -> None:
             self._events.send(
                 GameEvents.UNIT_SPAWN_REQUESTED,
-                data=SpawnRequested(faction=Faction.ENEMY, unit_type=UnitType.RANGED),
+                data=SpawnRequested(faction=Faction.ENEMY, unit_type=UnitType.SIEGE),
             )
 
         self._spawn_enemy_ranged_btn = s.Button(

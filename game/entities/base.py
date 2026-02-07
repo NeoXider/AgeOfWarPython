@@ -27,7 +27,7 @@ class Base(Entity):
         # Используем примитив (пустой путь к изображению), чтобы проект запускался без ассетов.
         sprite = s.Sprite(
             "",
-            size=(120, 160),
+            size=(50, 80),
             pos=pos,
             scene=scene,
             sorting_order=0,
