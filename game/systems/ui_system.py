@@ -29,7 +29,7 @@ class UISystem:
         self._gold_handler: Optional[callable] = None
         self._gold_text: Optional[s.TextSprite] = None
         self._gold_iface: Optional[s.Sprite] = None
-        self._spawn_iface: Optional[s.Sprite] = None
+        self.panel_spawn: Optional[s.Sprite] = None
         self._spawn_player_melee_btn: Optional[s.Button] = None
         self._spawn_player_ranged_btn: Optional[s.Button] = None
         self._spawn_enemy_melee_btn: Optional[s.Button] = None
@@ -66,18 +66,32 @@ class UISystem:
                 data=SpawnRequested(faction=Faction.PLAYER, unit_type=UnitType.MELEE),
             )
 
+        self.panel_spawn = s.Sprite(
+            "assets/images/right_burda.png",
+            (500,300),
+            (900, -100),
+            0,
+            anchor=s.Anchor.TOP_RIGHT,
+            sorting_order=1000,
+            scene=self._scene,
+        )
+        self.panel_spawn.set_screen_space(True)
+
         self._spawn_player_melee_btn = s.Button(
-            '',
-            (220, 48),
-            (10, s.WH.y - 20),
-            "P: MELEE (1)",
+            'assets/images/death.png',
+            (48, 48),
+            (50,0),
+            "",
             22,
             on_click=spawn_player_melee,
             anchor=s.Anchor.BOTTOM_LEFT,
             sorting_order=1000,
             scene=self._scene,
         )
-        self._spawn_player_melee_btn.set_screen_space(True)
+        self._spawn_player_melee_btn.set_parent(self.panel_spawn,False)
+        self._spawn_player_melee_btn.position += (-100,10)
+
+        
 
         def spawn_player_ranged() -> None:
             self._events.send(
@@ -86,10 +100,10 @@ class UISystem:
             )
 
         self._spawn_player_ranged_btn = s.Button(
-            '',
-            (220, 48),
+            'assets/images/piupiu.png',
+            (48, 48),
             (240, s.WH.y - 20),
-            "P: RANGED (3)",
+            "",
             22,
             on_click=spawn_player_ranged,
             anchor=s.Anchor.BOTTOM_LEFT,
