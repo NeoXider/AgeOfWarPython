@@ -21,7 +21,7 @@ class Paths:
     assets: str = "assets"
     images: str = "assets/images"
     audio: str = "assets/audio"
-
+    images_warrior: str = "assets/images/Warriors"
 
 PATHS = Paths()
 

@@ -6,12 +6,15 @@
 
 from __future__ import annotations
 
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 
 from game.domain import Faction
-from game.entities import Unit
+from game.entities import Unit, unit
 from game.global_events import GameEvents, SpawnRequested
 
+if TYPE_CHECKING:
+    import spritePro as s
+    from game.entities import Unit
 
 class SpawnSystem:
     """
@@ -38,10 +41,14 @@ class SpawnSystem:
             self._connected_handler = None
 
     def update(self, dt: float) -> None:
-        pass
+        for unit in self._units:
+            if unit.faction == Faction.PLAYER:                                      
+                unit.move_to(850.0)
+            else: 
+                unit.move_to(50.0)
 
     def _on_spawn_requested(self, *, data: SpawnRequested) -> None:
-        x = 180 if data.faction == Faction.PLAYER else 620
+        x = 135 if data.faction == Faction.PLAYER else 790
         y = 380
         unit = Unit.create(self._scene, data.faction, (x, y))
         self._units.append(unit)

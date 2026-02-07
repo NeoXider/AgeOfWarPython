@@ -33,8 +33,8 @@ class GameScene(s.Scene):
         )
 
         # Создаём объекты мира в конструкторе (как договорились в проекте).
-        self.player_base = Base.create(self, Faction.PLAYER, (120, 360))
-        self.enemy_base = Base.create(self, Faction.ENEMY, (680, 360))
+        self.player_base = Base.create(self, Faction.PLAYER, (50, 360))
+        self.enemy_base = Base.create(self, Faction.ENEMY, (850, 360))
 
         # Создаём системы в конструкторе, подписки/ресурсы включаем в on_enter.
         self.systems = [
@@ -60,7 +60,12 @@ class GameScene(s.Scene):
             self.events.send(GameEvents.UNIT_SPAWN_REQUESTED, data=SpawnRequested(faction=Faction.PLAYER))
         if s.input.was_pressed(pygame.K_2):
             self.events.send(GameEvents.UNIT_SPAWN_REQUESTED, data=SpawnRequested(faction=Faction.ENEMY))
+        if s.input.was_pressed(pygame.K_3):
+            if self.units:
+                self.units[0].move_to(400.0)
 
+        for unit in self.units:
+            unit.update_movement(dt)
         for sys in self.systems:
             sys.update(dt)
 
