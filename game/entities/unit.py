@@ -47,7 +47,10 @@ class Unit(Entity):
             scene=scene,
             sorting_order=5,
         )
-        sprite.color = (30, 220, 120) if faction == Faction.PLAYER else (220, 60, 60)
+        #sprite.color = (30, 220, 120) if faction == Faction.PLAYER else (220, 60, 60)
+
+        if unit_type == UnitType.SIEGE:
+            sprite.scale = 0.5
 
         anim = _build_animation(sprite, unit_type)
         sprite.animation = anim

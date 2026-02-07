@@ -16,7 +16,7 @@ def _build_animation(sprite: s.Sprite, unit_type: UnitType) -> s.Animation:
      
     if unit_type == UnitType.MELEE:
         warrior_path = "Warrior1"
-    else:
+    elif unit_type == UnitType.SIEGE:
         warrior_path = "Warrior2"
     
     anim.add_state('idle', [
